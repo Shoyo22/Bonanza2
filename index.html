@@ -582,16 +582,16 @@ footer::before{
     </div>
   </div>
 
-  <div class="hero-scroll"><span>Desliza</span><div class="dot-line"></div></div>
+  <!-- Recuerda que el contenedor que envuelve todo esto debe tener style="position: relative;" -->
 
-  <div class="hero-waves">
-    <svg class="wave-back" viewBox="0 0 1600 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,60 C 200,110 400,10 600,60 C 800,110 1000,10 1200,60 C 1400,110 1500,40 1600,60 L1600,140 L0,140 Z" fill="#0d5f8a" opacity="0.55"/>
-    </svg>
-    <svg class="wave-front" viewBox="0 0 1600 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:-40px;">
-      <path d="M0,40 C 200,90 400,0 600,40 C 800,80 1000,0 1200,40 C 1400,80 1500,20 1600,40 L1600,100 L0,100 Z" fill="#0a1a3d"/>
-    </svg>
-  </div>
+<div class="hero-waves" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 180px; overflow: hidden; z-index: 2; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%); mask-image: linear-gradient(to bottom, transparent 0%, black 15%);">
+  <video autoplay muted loop playsinline class="hero-wave-video" style="width: 100%; height: 100%; object-fit: cover;">
+    <source src="6599477-hd_1920_1080_30fps.mp4" type="video/mp4">
+  </video>
+
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(223, 179, 30, 0.3); pointer-events: none;"></div>
+
+</div>
 </header>
 
 <!-- ============ GRANIZADOS ============ -->
@@ -1002,5 +1002,16 @@ document.getElementById('reviewForm').addEventListener('submit', (e) => {
   starPicker.querySelectorAll('span').forEach(s => s.classList.remove('active'));
 });
 </script>
+</body>
+</html>
+ipt>
+</body>
+</html>ipt>
+</body>
+</html>ipt>
+</body>
+</html>ipt>
+</body>
+</html>ipt>
 </body>
 </html>
