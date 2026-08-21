@@ -302,28 +302,102 @@ h2{font-size:clamp(2rem, 4.2vw, 3rem); color:var(--navy);}
 .showcase-caption{position:relative; z-index:2; text-align:center; margin-top:50px;}
 .showcase-caption span{font-family:var(--ff-script); font-size:1.5rem; color:var(--yellow);}
 
-/* ============ SABORES ============ */
-.section-sabores{padding:120px 0; background:var(--white); position:relative;}
-.sabores-grid{
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:20px;
+/* ============ TOPPINGS TAB + PANEL ============ */
+.toppings-tab{
+  position:fixed; top:50%; right:0; transform:translateY(-50%);
+  z-index:850;
+  background:linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color:var(--white);
+  font-family:var(--ff-display);
+  font-size:0.85rem;
+  letter-spacing:2px;
+  padding:16px 10px;
+  border-radius:14px 0 0 14px;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  box-shadow:-8px 8px 24px -10px rgba(8,23,51,0.5);
+  display:flex; align-items:center; gap:8px;
+  transition:padding .25s ease, transform .25s ease, background .25s ease;
 }
-.sabor-chip{
-  border-radius:var(--radius-md); padding:30px 18px; text-align:center; color:var(--white);
-  position:relative; overflow:hidden; min-height:150px; display:flex; flex-direction:column; justify-content:flex-end;
-  box-shadow:0 16px 30px -14px rgba(8,23,51,0.35);
-  transition:transform .3s ease;
+.toppings-tab:hover{padding-right:16px; background:linear-gradient(135deg, var(--orange-dark), var(--orange));}
+.toppings-tab .tab-icon{writing-mode:horizontal-tb; font-size:1.1rem;}
+
+.sabores-tab{
+  position:fixed; top:50%; left:0; transform:translateY(-50%);
+  z-index:850;
+  background:linear-gradient(135deg, var(--teal), #0a7a7b);
+  color:var(--white);
+  font-family:var(--ff-display);
+  font-size:0.85rem;
+  letter-spacing:2px;
+  padding:16px 10px;
+  border-radius:0 14px 14px 0;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  box-shadow:8px 8px 24px -10px rgba(8,23,51,0.5);
+  display:flex; align-items:center; gap:8px;
+  transition:padding .25s ease, background .25s ease;
 }
-.sabor-chip:hover{transform:translateY(-8px) rotate(-1deg);}
-.sabor-chip::before{content:''; position:absolute; top:-30px; right:-30px; width:90px; height:90px; border-radius:50%; background:rgba(255,255,255,0.18);}
-.sabor-chip h4{font-family:var(--ff-body); font-weight:700; font-size:1.05rem;}
-.sabor-chip small{opacity:0.85; font-size:0.75rem; letter-spacing:0.5px;}
-.sabor-chip.c1{background:linear-gradient(150deg,#ff7fa3,#e8285f);}
-.sabor-chip.c2{background:linear-gradient(150deg,#ffcf6b,#ff9d1f);}
-.sabor-chip.c3{background:linear-gradient(150deg,#e8ff8a,#8fc82c);}
-.sabor-chip.c4{background:linear-gradient(150deg,#c58bff,#7b2ff7);}
-.sabor-chip.c5{background:linear-gradient(150deg,#8fe3ff,#0c999a);}
-.sabor-chip.c6{background:linear-gradient(150deg,#ff9d9d,#e63946);}
-.sabor-chip.c7{background:linear-gradient(150deg,#0c2452,#0d5f8a); border:2px dashed rgba(255,255,255,0.4);}
+.sabores-tab:hover{padding-left:16px; background:linear-gradient(135deg, #0a7a7b, var(--teal));}
+.sabores-tab .tab-icon{writing-mode:horizontal-tb; font-size:1.1rem;}
+
+.toppings-overlay, .sabores-overlay{
+  position:fixed; inset:0; background:rgba(8,23,51,0.55); backdrop-filter:blur(3px);
+  z-index:940; opacity:0; pointer-events:none; transition:opacity .35s ease;
+}
+.toppings-overlay.open, .sabores-overlay.open{opacity:1; pointer-events:auto;}
+
+.toppings-panel{
+  position:fixed; top:0; right:0; height:100vh; width:min(360px, 88vw);
+  background:var(--cream);
+  z-index:950;
+  transform:translateX(100%);
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+  box-shadow:-20px 0 50px -20px rgba(8,23,51,0.5);
+  overflow-y:auto;
+  padding:34px 26px 40px;
+}
+.toppings-panel.open{transform:translateX(0);}
+
+.sabores-panel{
+  position:fixed; top:0; left:0; height:100vh; width:min(360px, 88vw);
+  background:var(--cream);
+  z-index:950;
+  transform:translateX(-100%);
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+  box-shadow:20px 0 50px -20px rgba(8,23,51,0.5);
+  overflow-y:auto;
+  padding:34px 26px 40px;
+}
+.sabores-panel.open{transform:translateX(0);}
+
+.toppings-panel-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;}
+.toppings-panel-head h3{font-family:var(--ff-display); font-size:1.5rem; color:var(--navy);}
+.toppings-close{
+  width:36px; height:36px; border-radius:50%; background:var(--white);
+  color:var(--navy); font-size:1.1rem; box-shadow:var(--shadow-soft); flex-shrink:0;
+}
+.toppings-close:hover{background:var(--orange); color:var(--white);}
+.toppings-panel .eyebrow, .sabores-panel .eyebrow{margin-bottom:22px;}
+.topping-item{
+  display:flex; align-items:center; gap:14px;
+  background:var(--white); border-radius:var(--radius-md);
+  padding:14px 16px; margin-bottom:14px;
+  box-shadow:0 10px 22px -14px rgba(8,23,51,0.35);
+  transition:transform .25s ease;
+}
+.topping-item:hover{transform:translateX(-6px);}
+.topping-swatch{
+  width:44px; height:44px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+  box-shadow:inset 0 -4px 8px rgba(0,0,0,0.12);
+}
+.topping-item h5{font-size:0.95rem; color:var(--navy); font-weight:700; margin-bottom:2px;}
+.topping-item p{font-size:0.78rem; color:#7c8aa0;}
+.toppings-note{
+  margin-top:24px; font-size:0.75rem; color:#9aa8bd; line-height:1.6;
+  border-top:1px dashed #e2c8ff; padding-top:16px;
+}
 
 /* ============ OPINIONES ============ */
 .section-opiniones{padding:120px 0; background:var(--cream); position:relative; overflow:hidden;}
@@ -586,11 +660,11 @@ footer::before{
 
 <div class="hero-waves" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 180px; overflow: hidden; z-index: 2; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%); mask-image: linear-gradient(to bottom, transparent 0%, black 15%);">
   <video autoplay muted loop playsinline class="hero-wave-video" style="width: 100%; height: 100%; object-fit: cover;">
-    <source src="Ocean.mp4" type="video/mp4">
+    <source src="6599477-hd_1920_1080_30fps.mp4" type="video/mp4">
   </video>
 
   <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 40, 100, 0.2); pointer-events: none;"></div>
-
+  
 </div>
 </header>
 
@@ -695,25 +769,86 @@ footer::before{
   <div class="showcase-caption"><span>puro sabor, pura ola 🌊</span></div>
 </section>
 
-<!-- ============ SABORES ============ -->
-<section class="section-sabores" id="sabores">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Menú de sabores</span>
-      <h2>Nuestros sabores</h2>
-      <p>Una paleta de colores tan viva como la playa misma. Personaliza esta lista con tus sabores reales cuando quieras.</p>
+<!-- Pestaña e panel de Sabores -->
+<button class="sabores-tab" id="openSabores"><span class="tab-icon">🍓</span>SABORES</button>
+<div class="sabores-overlay" id="saboresOverlay"></div>
+<aside class="sabores-panel" id="saboresPanel">
+  <div class="toppings-panel-head">
+    <div>
+      <span class="eyebrow" style="margin-bottom:2px;">Menú de sabores</span>
+      <h3>Sabores</h3>
     </div>
-    <div class="sabores-grid">
-      <div class="sabor-chip c1 reveal"><h4>Fresa</h4><small>Clásico de siempre</small></div>
-      <div class="sabor-chip c2 reveal"><h4>Mango</h4><small>Tropical</small></div>
-      <div class="sabor-chip c3 reveal"><h4>Limón</h4><small>Cítrico fresco</small></div>
-      <div class="sabor-chip c4 reveal"><h4>Uva</h4><small>Dulce intenso</small></div>
-      <div class="sabor-chip c5 reveal"><h4>Maracuyá</h4><small>Ácido tropical</small></div>
-      <div class="sabor-chip c6 reveal"><h4>Cereza</h4><small>Dulce clásico</small></div>
-      <div class="sabor-chip c7 reveal"><h4>+ Sabor especial</h4><small>Próximamente</small></div>
-    </div>
+    <button class="toppings-close" id="closeSabores" aria-label="Cerrar">✕</button>
   </div>
-</section>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#ffe1ec;">🍓</div>
+    <div><h5>Fresa</h5><p>Clásico de siempre</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#ffe9cc;">🥭</div>
+    <div><h5>Mango</h5><p>Tropical</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#f2ffcf;">🍋</div>
+    <div><h5>Limón</h5><p>Cítrico fresco</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#f1e2ff;">🍇</div>
+    <div><h5>Uva</h5><p>Dulce intenso</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#ffe9cc;">🟠</div>
+    <div><h5>Maracuyá</h5><p>Ácido tropical</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#ffe1e1;">🍒</div>
+    <div><h5>Cereza</h5><p>Dulce clásico</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#e2f4ff;">✨</div>
+    <div><h5>+ Sabor especial</h5><p>Próximamente</p></div>
+  </div>
+  <p class="toppings-note">* Contenido de ejemplo — reemplaza nombres, descripciones e íconos por tus sabores reales cuando quieras.</p>
+</aside>
+
+<!-- Pestaña e panel de Toppings -->
+<button class="toppings-tab" id="openToppings"><span class="tab-icon">🍒</span>TOPPINGS</button>
+<div class="toppings-overlay" id="toppingsOverlay"></div>
+<aside class="toppings-panel" id="toppingsPanel">
+  <div class="toppings-panel-head">
+    <div>
+      <span class="eyebrow" style="margin-bottom:2px;">Personaliza tu vaso</span>
+      <h3>Toppings</h3>
+    </div>
+    <button class="toppings-close" id="closeToppings" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#ffe1ec;">🍬</div>
+    <div><h5>Malvavisco</h5><p>Nube suave y dulce</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#ffe9cc;">🍫</div>
+    <div><h5>Chispas de chocolate</h5><p>Crunch en cada cucharada</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#ffd9c2;">🌶️</div>
+    <div><h5>Chamoy</h5><p>Ácido, dulce y picosito</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#e8ff8a;">🐛</div>
+    <div><h5>Gomitas</h5><p>Surtido de frutas</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#e2f4ff;">🥥</div>
+    <div><h5>Coco rallado</h5><p>Toque tropical</p></div>
+  </div>
+  <div class="topping-item">
+    <div class="topping-swatch" style="background:#fff3c4;">🍯</div>
+    <div><h5>Leche condensada</h5><p>Cremosidad extra</p></div>
+  </div>
+  <p class="toppings-note">* Contenido de ejemplo — reemplaza nombres, descripciones e íconos por tus toppings reales cuando quieras.</p>
+</aside>
+
 
 <!-- ============ OPINIONES ============ -->
 <section class="section-opiniones" id="opiniones">
@@ -951,6 +1086,48 @@ for (let i = 0; i < 40; i++) {
   s.style.animationDelay = (Math.random() * 3) + 's';
   starsWrap.appendChild(s);
 }
+
+// Toppings panel
+const toppingsPanel = document.getElementById('toppingsPanel');
+const toppingsOverlay = document.getElementById('toppingsOverlay');
+function openToppingsPanel(){
+  toppingsPanel.classList.add('open');
+  toppingsOverlay.classList.add('open');
+}
+function closeToppingsPanel(){
+  toppingsPanel.classList.remove('open');
+  toppingsOverlay.classList.remove('open');
+}
+document.getElementById('openToppings').addEventListener('click', openToppingsPanel);
+document.getElementById('closeToppings').addEventListener('click', closeToppingsPanel);
+toppingsOverlay.addEventListener('click', closeToppingsPanel);
+
+// Sabores panel
+const saboresPanel = document.getElementById('saboresPanel');
+const saboresOverlay = document.getElementById('saboresOverlay');
+function openSaboresPanel(){
+  saboresPanel.classList.add('open');
+  saboresOverlay.classList.add('open');
+}
+function closeSaboresPanel(){
+  saboresPanel.classList.remove('open');
+  saboresOverlay.classList.remove('open');
+}
+document.getElementById('openSabores').addEventListener('click', openSaboresPanel);
+document.getElementById('closeSabores').addEventListener('click', closeSaboresPanel);
+saboresOverlay.addEventListener('click', closeSaboresPanel);
+
+// Los enlaces "Sabores" del menú (desktop, móvil y footer) abren el panel en vez de desplazar
+['navSabores','mobileSabores','footerSabores'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el){
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      mobileMenu.classList.remove('open');
+      openSaboresPanel();
+    });
+  }
+});
 
 // Carousel controls
 const track = document.getElementById('carouselTrack');
